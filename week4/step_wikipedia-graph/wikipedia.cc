@@ -45,11 +45,11 @@ void bfs(map<string, string> pages, map<string, set<string> > links, string star
 	string startID = getID(pages, start);
 	string goalID = getID(pages, goal);
 
-    queue<pair<string, string> > que;		  // (現在のID、直前のID)
+    queue<pair<string, string> > que;         // (現在のID、直前のID)
 	vector<pair<string, string> > candidate;  // 後でパスを辿るため履歴を保存
-	vector<pair<string, string> > path; 	  // 最終的な経路を保存
-	vector<string> looked; 					  // 既に探索済みのIDを保存
-	bool ans = false; 						  // startからgoalに辿り着けるか
+	vector<pair<string, string> > path;       // 最終的な経路を保存
+	vector<string> looked;                    // 既に探索済みのIDを保存
+	bool ans = false;                         // startからgoalに辿り着けるか
 	que.push(make_pair(startID, "-1"));
 
     while (!que.empty()) {
