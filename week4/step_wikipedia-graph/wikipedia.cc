@@ -10,16 +10,16 @@ using namespace std;
 
 /* ----- キーワードのページIDを取得する ----- */
 string getID(map<string, string> pages, string title){
-	bool sFinish = false, gFinish = false;
-	string startID, goalID;
+    bool sFinish = false, gFinish = false;
+    string startID, goalID;
 
-	for (const auto& page : pages) {
-		if (page.second == title) {
-			startID = page.first;
-			break;
-		}
-  	}
-	return startID;
+    for (const auto& page : pages) {
+        if (page.second == title) {
+            startID = page.first;
+            break;
+        }
+    }
+    return startID;
 }
 
 /* ----- 経路を取得する ----- */
