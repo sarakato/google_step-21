@@ -15,11 +15,7 @@ step_wikipedia-graph
 │   ├── links.txt
 │   ├── pages_small.txt
 │   └── pages.txt
-├── .gitignore
-├── README.md
-├── wikipedia_sample.cc
-├── wikipedia_sample.py
-└── WikipediaSample.java
+└── wikipedia_sample.cc
 ```
 
 ## 実行
