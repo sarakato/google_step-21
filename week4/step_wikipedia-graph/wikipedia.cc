@@ -6,12 +6,16 @@
 #include <sstream>
 #include <string>
 #include <vector>
-using namespace std;
+
+using namespace std; // 改行を入れる
 
 /* ----- キーワードのページIDを取得する ----- */
-string getID(map<string, string> pages, string title){
-    bool sFinish = false, gFinish = false;
-    string startID, goalID;
+string getID(map<string, string> pages, string title) {
+    // 同じ型でも、改行する。でもsFinish/gFinishは使われていない？
+    bool sFinish = false;
+    bool gFinish = false;
+    string startID;
+    string goalID;
 
     for (const auto& page : pages) {
         if (page.second == title) {
@@ -23,8 +27,8 @@ string getID(map<string, string> pages, string title){
 }
 
 /* ----- 経路を取得する ----- */
-vector<pair<string, string> > getPATH(vector<pair<string, string> > candidate, map<string, string> pages, string goalID){
-    vector<pair<string, string> > path;
+vector<pair<string, string>> getPATH(vector<pair<string, string> > candidate, map<string, string> pages, string goalID) {
+    vector<pair<string, string>> path;
     reverse(candidate.begin(), candidate.end()); // 逆順に探した方が効率がいいのでreverseする
 
     string candidateID = goalID;
@@ -45,9 +49,9 @@ void bfs(map<string, string> pages, map<string, set<string> > links, string star
     string startID = getID(pages, start);
     string goalID = getID(pages, goal);
 
-    queue<pair<string, string> > que;         // (現在のID、直前のID)
-    vector<pair<string, string> > candidate;  // 後でパスを辿るため履歴を保存
-    vector<pair<string, string> > path;       // 最終的な経路を保存
+    queue<pair<string, string>> que;         // (現在のID、直前のID)
+    vector<pair<string, string>> candidate;  // 後でパスを辿るため履歴を保存
+    vector<pair<string, string>> path;       // 最終的な経路を保存
     vector<string> looked;                    // 既に探索済みのIDを保存
     bool ans = false;                         // startからgoalに辿り着けるか
     que.push(make_pair(startID, "-1"));
@@ -60,8 +64,7 @@ void bfs(map<string, string> pages, map<string, set<string> > links, string star
             candidate.push_back(v);
             ans = true;
             break;
-        }
-        else {
+        } else {
             candidate.push_back(v);
             looked.push_back(v.first);
             for (string x : links[v.first]) {
@@ -78,8 +81,7 @@ void bfs(map<string, string> pages, map<string, set<string> > links, string star
         for (pair<string, string> p: path) {
             cout << p.first << " (pageID : " << p.second << ")" << endl;
         }
-    }
-    else { /* --- 経路が見つからなかったとき --- */
+    } else { /* --- 経路が見つからなかったとき --- */
         cout << "You can't go from \"" << start << "\" to \"" << goal << "\"." << endl;
     }
 
@@ -88,7 +90,8 @@ void bfs(map<string, string> pages, map<string, set<string> > links, string star
 int main() {
     map<string, string> pages;
     map<string, set<string> > links;
-    string start, goal;
+    string start;
+    string goal;
 
     {	/* --- ページ情報の読み込み --- */
         ifstream file("data/pages.txt");
@@ -119,6 +122,9 @@ int main() {
     cin >> goal;
     cout << endl;
 
+    // 改善点の提案：
+    //　start/goalは実際に存在するか検証する
+    // 例えば　"You did not enter a valid start/ goal page"を出力する
     bfs (pages, links, start, goal);
 
     return 0;
